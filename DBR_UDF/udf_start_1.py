@@ -26,6 +26,7 @@ def checkIfNull(strName, dfValue):
         # res = strName
     return res
 
+# this function does not insert column name, but cell's values. To investigate.
 
 
 # COMMAND ----------
