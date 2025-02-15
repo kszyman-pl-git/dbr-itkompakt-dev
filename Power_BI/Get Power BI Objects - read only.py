@@ -14,14 +14,6 @@ from pyspark.sql.functions import split
 
 # COMMAND ----------
 
-# key_vault_scope = "kv-cdh-launchpad-da-72"
-
-# service_id = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-ID")
-# service_key = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-KEY")
-# pg_tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
-
-# COMMAND ----------
-
 wrks_arr = {}
 jsonWorkspaceList = []
 jsonDatasetList = []
@@ -31,23 +23,11 @@ jsonReportList = []
 # COMMAND ----------
 
 # Service Principal Information
+key_vault_scope = "kv-from-Azure"
 
-# client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-ID")
-# client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-Key")
-# tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
-
-client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-MUSE-PBI-D-ID")
-client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-MUSE-PBI-D-Key")
-tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
-
-# client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-HDCA-PBI-D-ID")
-# client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-HDCA-PBI-D-Key")
-# tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
-
-# try that one on Monday
-# client_id = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-ID")
-# client_secret = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-KEY")
-# pg_tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
+client_id = dbutils.secrets.get(scope=key_vault_scope, key="STC-MUSE-PBI-D-ID")
+client_secret = dbutils.secrets.get(scope=key_vault_scope, key="STC-MUSE-PBI-D-Key")
+tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
 
 base_url = f"https://api.powerbi.com/v1.0/myorg/"
 base_url_app = "https://api.powerbi.com.rproxy.goskope.com/v1.0/myorg/"

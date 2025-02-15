@@ -32,8 +32,8 @@ jsonReportList = []
 
 # Service Principal Information
 
-client_id = dbutils.secrets.get(scope=key_vault_scope, key="STC-PMRA-PBI-D-ID")
-client_secret = dbutils.secrets.get(scope=key_vault_scope, key="STC-PMRA-PBI-D-Key")
+client_id = dbutils.secrets.get(scope=key_vault_scope, key="client-id")
+client_secret = dbutils.secrets.get(scope=key_vault_scope, key="client-secret")
 tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
 
 base_url = f"https://api.powerbi.com/v1.0/myorg/"
@@ -135,25 +135,25 @@ df_rep3 = df_rep2.withColumn('workspaceId', split_col.getItem(4))
 
 # COMMAND ----------
 
-# dbutils.fs.ls("abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/")
+# dbutils.fs.ls("abfss://blob-storage@storage-account.dfs.core.windows.net/")
 
 # COMMAND ----------
 
-spark.conf.set("fs.azure.account.auth.type.blobcdhlaunchpadda72dv.dfs.core.windows.net", "OAuth")
-spark.conf.set("fs.azure.account.oauth.provider.type.blobcdhlaunchpadda72dv.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
-spark.conf.set("fs.azure.account.oauth2.client.id.blobcdhlaunchpadda72dv.dfs.core.windows.net", service_id)
-spark.conf.set("fs.azure.account.oauth2.client.secret.blobcdhlaunchpadda72dv.dfs.core.windows.net", service_key)
-spark.conf.set("fs.azure.account.oauth2.client.endpoint.blobcdhlaunchpadda72dv.dfs.core.windows.net", f"https://login.microsoftonline.com/{pg_tenant_id}/oauth2/token")
+spark.conf.set("fs.azure.account.auth.type.{storage-account}.dfs.core.windows.net", "OAuth")
+spark.conf.set("fs.azure.account.oauth.provider.type.{storage-account}.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+spark.conf.set("fs.azure.account.oauth2.client.id.{storage-account}.dfs.core.windows.net", service_id)
+spark.conf.set("fs.azure.account.oauth2.client.secret.{storage-account}.dfs.core.windows.net", service_key)
+spark.conf.set("fs.azure.account.oauth2.client.endpoint.{storage-account}.dfs.core.windows.net", f"https://login.microsoftonline.com/{pg_tenant_id}/oauth2/token")
 
-df_workspaces.coalesce(1).write.format("delta").mode("overwrite").saveAsTable("hive_metastore.stc_tech.workspace_list")
+df_workspaces.coalesce(1).write.format("delta").mode("overwrite").saveAsTable("hive_metastore.db_schema.workspace_list")
 
 df_dts3.coalesce(1).write.format("delta") \
     .mode("overwrite") \
-    .saveAsTable("hive_metastore.stc_tech.dataset_list")
+    .saveAsTable("hive_metastore.db_schema.dataset_list")
 
 df_rep3.coalesce(1).write.format("delta") \
     .mode("overwrite") \
-    .saveAsTable("hive_metastore.stc_tech.report_list")
+    .saveAsTable("hive_metastore.db_schema.report_list")
 
 # COMMAND ----------
 
@@ -162,14 +162,14 @@ df_rep3.coalesce(1).write.format("delta") \
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- select * from hive_metastore.stc_tech.workspace_list
+# MAGIC -- select * from hive_metastore.db_schema.workspace_list
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- select * from hive_metastore.stc_tech.dataset_list
+# MAGIC -- select * from hive_metastore.db_schema.dataset_list
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- select * from hive_metastore.stc_tech.report_list
+# MAGIC -- select * from hive_metastore.db_schema.report_list

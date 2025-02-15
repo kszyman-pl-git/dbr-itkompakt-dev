@@ -29,18 +29,9 @@ import requests
 
 # Service Principal Information
 
-if pbi_env == "prod":
-    client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-P-ID")
-    client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-P-Key")
-    tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
-elif pbi_env == "test":
-    client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-T-ID")
-    client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-T-Key")
-    tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
-else:
-    client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-ID")
-    client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-Key")
-    tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
+client_id = dbutils.secrets.get(scope="kv-from-Azure", key="client-id")
+client_secret = dbutils.secrets.get(scope="kv-from-Azure", key="client-secret-id")
+tenant_id = dbutils.secrets.get(scope="kv-from-Azure", key="tenant-id")
     
 base_url = f"https://api.powerbi.com/v1.0/myorg/"
 

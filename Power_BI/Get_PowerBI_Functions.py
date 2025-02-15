@@ -1,12 +1,14 @@
 # Databricks notebook source
 # Service Principal Information
 
-client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-ID")
-client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-Key")
-tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
+key_vault = "kv-from-Azure"
 
-# sa_username = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-SA-User")
-# sa_password = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-SA-Password")
+client_id = dbutils.secrets.get(scope=key_vault, key="client-id")
+client_secret = dbutils.secrets.get(scope=key_vault, key="STC-client-secret")
+tenant_id = dbutils.secrets.get(scope=key_vault, key="tenant-id")
+
+# sa_username = dbutils.secrets.get(scope=key_vault, key="SA-User")
+# sa_password = dbutils.secrets.get(scope=key_vault, key="SA-Password")
 
 base_url = f"https://api.powerbi.com/v1.0/myorg/"
 base_url_app = "https://api.powerbi.com.rproxy.goskope.com/v1.0/myorg/"

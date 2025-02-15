@@ -12,9 +12,9 @@ import os
 
 # Service Principal Information
 
-client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-MUSE-PBI-D-ID")
-client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-MUSE-PBI-D-Key")
-tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
+client_id = dbutils.secrets.get(scope="kv-from-Azure", key="client-id")
+client_secret = dbutils.secrets.get(scope="kv-from-Azure", key="Ssecret-id")
+tenant_id = dbutils.secrets.get(scope="kv-from-Azure", key="tenant-id")
 
 w_id = ''
 cap_id = ''
@@ -63,10 +63,6 @@ display(cap_id)
 # COMMAND ----------
 
 # Assign workspace to Premium capacity
-# w_id = '939d3456-3c17-4348-b7d7-e59ba65a7d52'
-# cap_id = '706DF6EA-C02C-4125-BEB0-582469185114'
-# display(w_id)
-
 premium_url = f'https://api.powerbi.com/v1.0/myorg/groups/{w_id}/AssignToCapacity'
 
 data = {
@@ -86,7 +82,7 @@ display(response.status_code)
 perm_url = f"https://api.powerbi.com/v1.0/myorg/groups/{w_id}/users"
 
 data = {
-    "emailAddress": "szymanski.ks@pg.com"
+    "emailAddress": "full.name@domain.com"
     , "groupUserAccessRight": "Admin"
     , "principalType": "User"
 }
@@ -101,7 +97,7 @@ response = requests.post(perm_url, headers=headers, json=data)
 perm_url2 = f"https://api.powerbi.com/v1.0/myorg/groups/{w_id}/users"
 
 data = {
-    "emailAddress": "pogorzelski.m.1@pg.com"
+    "emailAddress": "full.name@domain.com"
     , "groupUserAccessRight": "Admin"
     , "principalType": "User"
 }
@@ -141,7 +137,7 @@ response = requests.post(perm_url4, headers=headers, json=data4)
 
 # COMMAND ----------
 
-# graph_url = "https://graph.microsoft.com/v1.0/groups?$filter=displayName eq 'STCG-PBI-HDCA-Developers'"
+# graph_url = "https://graph.microsoft.com/v1.0/groups?$filter=displayName eq 'Azure-group'"
 
 # response = requests.get(graph_url, headers=headers).json()
 # display(response)

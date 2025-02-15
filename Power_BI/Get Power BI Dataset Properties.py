@@ -9,16 +9,16 @@ import os
 
 # COMMAND ----------
 
-subscription_id = 'b8dec86d-12dc-46f8-8729-cd7fa3c1ed3c' # PG-NA-External-Spoke-DH-NonProd-04
-key_vault_scope = "kv-cdh-launchpad-da-72"
+subscription_id = 'subscription-id'
+key_vault_scope = "kv-from-Azure"
 
-client_id_az = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-ID")
-client_secret_az = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-KEY")
+client_id_az = dbutils.secrets.get(scope=key_vault_scope, key="client-id")
+client_secret_az = dbutils.secrets.get(scope=key_vault_scope, key="client-secret")
 tenant_id_az = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
 
-client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-ID")
-client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-Key")
-tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
+client_id = dbutils.secrets.get(scope=key_vault_scope, key="client-id")
+client_secret = dbutils.secrets.get(scope=key_vault_scope, key="client-secret")
+tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
 
 spark.conf.set("fs.azure.account.auth.type.blobcdhlaunchpadda72dv.dfs.core.windows.net", "OAuth")
 spark.conf.set("fs.azure.account.oauth.provider.type.blobcdhlaunchpadda72dv.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
@@ -29,10 +29,6 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint.blobcdhlaunchpadda72dv.d
 # COMMAND ----------
 
 # Service Principal Information
-
-# client_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-ID")
-# client_secret = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="STC-PMRA-PBI-D-Key")
-# tenant_id = dbutils.secrets.get(scope="kv-cdh-launchpad-da-72", key="tenant-id")
 
 base_url = f"https://api.powerbi.com/v1.0/myorg/"
 

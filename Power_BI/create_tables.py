@@ -1,8 +1,8 @@
 # Databricks notebook source
-key_vault_scope = "kv-cdh-launchpad-da-72"
+key_vault_scope = "kv-from-Azure"
 
-service_id = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-ID")
-service_key = dbutils.secrets.get(scope=key_vault_scope, key="az-sp-extended-devops-app-da-72dv-KEY")
+service_id = dbutils.secrets.get(scope=key_vault_scope, key="kv-service-ID")
+service_key = dbutils.secrets.get(scope=key_vault_scope, key="kv-service-KEY")
 pg_tenant_id = dbutils.secrets.get(scope=key_vault_scope, key="tenant-id")
 
 # print(service_id)
@@ -23,32 +23,27 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint.blobcdhlaunchpadda72dv.d
 
 # COMMAND ----------
 
-dbutils.fs.rm('abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/workspace_list/', True)
-dbutils.fs.rm('abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/dataset_list/', True)
-dbutils.fs.rm('abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/report_list/', True)
+dbutils.fs.rm('abfss://blob-storage@storage-account.dfs.core.windows.net/workspace_list/', True)
+dbutils.fs.rm('abfss://blob-storage@storage-account.dfs.core.windows.net/dataset_list/', True)
+dbutils.fs.rm('abfss://blob-storage@storage-account.dfs.core.windows.net/report_list/', True)
 
 # COMMAND ----------
 
-dbutils.fs.ls("abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/")
+dbutils.fs.ls("abfss://blob-storage@storage-account.dfs.core.windows.net/")
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC create or replace table hive_metastore.stc_tech.workspace_list
 # MAGIC (workspaceId string, workspaceName string)
-# MAGIC LOCATION 'abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/workspace_list';
-
-# COMMAND ----------
-
-# %sql
-# select * from hive_metastore.stc_tech.workspace_list
+# MAGIC LOCATION 'abfss://blob-storage@storage-account.dfs.core.windows.net/workspace_list';
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC create or replace table hive_metastore.stc_tech.dataset_list
 # MAGIC (createdDate string, datasetId string, datasetName string, webUrl string, workspaceId string)
-# MAGIC LOCATION 'abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/dataset_list';
+# MAGIC LOCATION 'abfss://blob-storage@storage-account.dfs.core.windows.net/dataset_list';
 
 # COMMAND ----------
 
@@ -60,8 +55,8 @@ dbutils.fs.ls("abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/")
 # MAGIC %sql
 # MAGIC create or replace table hive_metastore.stc_tech.report_list
 # MAGIC (reportId string, reportName string, webUrl string, datasetId string, workspaceId string)
-# MAGIC LOCATION 'abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/report_list';
+# MAGIC LOCATION 'abfss://blob-storage@storage-account.dfs.core.windows.net/report_list';
 
 # COMMAND ----------
 
-dbutils.fs.ls("abfss://stc-tech@blobcdhlaunchpadda72dv.dfs.core.windows.net/")
+dbutils.fs.ls("abfss://blob-storage@storage-account.dfs.core.windows.net/")
